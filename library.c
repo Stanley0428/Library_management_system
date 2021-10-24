@@ -14,7 +14,6 @@
 #define book_remove 7
 #define exit 8
 
-void welcome_page();
 void book_return();
 void _borrow_list();
 void print_list();
@@ -24,24 +23,14 @@ void add_book();
 void remove_book();
 void choice();
 void menu();
-
-int b = 0xB2;
-int d = 13;
-int ASC2 = 200;
-int ASC3 = 201;
-int ASC4 = 205;
-int ASC5 = 187;
-int ASC6 = 186;
-int ASC7 = 183;
-
+//void Search_Page();
+int b=0xB2;
 char b00k_list[N][10] = {"Math","English","Chinese","Science","PE","physics",""}; 
-char current_listA[N][10] = {"Math","English","Chinese","Science","PE","physics",""}; 
-char current_listB[N][10] = {"Math","English","Chinese","Science","PE","physics",""}; 
+char current_list[N][10] = {"Math","English","Chinese","Science","PE","physics",""}; 
 int mode;
 
 int main() 
 {
-	welcome_page();
     while(1)
     {
 		menu();
@@ -53,52 +42,6 @@ int main()
     time(&t);
     printf("\nThis program has been writeen at (date and time): %s", ctime(&t));
 	return 0;
-}
-void welcome_page()
-{
-	int a;
-	char user_name[10];
-	system("cls");
-	//top
-	for(a=0;a<20;a++)
-	{
-		printf("%c",b);	
-	}
-	for(a=0;a<10;a++)
-	{
-		printf("%c ",b);	
-	}
-	for(a=0;a<20;a++)
-	{
-		printf("%c",b);	
-	}
-	//top
-	printf("%c\n",b);
-	printf("%c\t\tWELCOME TO LIBRARY MANAGEMENT SYSTEM\t    %c\n",b,b);
-	printf("%c\tenter your name:\t\t\t\t    %c\n",b,b);
-	//scanf("%c",user_name);
-	//printf("\t%c",b);
-	
-	for(a=0;a<22;a++)
-	{
-		printf("%c\t\t\t\t\t\t\t    %c",b,b);
-		printf("\n");	
-	}
-	//bottom
-	for(a=0;a<20;a++)
-	{
-		printf("%c",b);	
-	}
-	for(a=0;a<10;a++)
-	{
-		printf("%c ",b);	
-	}
-	for(a=0;a<22;a++)
-	{
-		printf("%c",b);	
-	}
-	//bottom
-	getch();
 }
 
 void menu()
@@ -170,7 +113,7 @@ void print_list()
 	printf("\n");
 	for(a=0;a<N;a++)
 	{
-		printf("%s ",current_listA[a]);
+		printf("%s ",current_list[a]);
 	}
 	printf("\n");
 	printf("Press anything to menu...");
@@ -193,7 +136,7 @@ void search()
 	for(a=0;a<N+1;a++)
 	{
 		cnt++;
-		if(strcmp(find_book,current_listA[a]) == 0)
+		if(strcmp(find_book,current_list[a]) == 0)
 		{
 			printf("We got your book\n");
 			break;
@@ -212,27 +155,27 @@ void search()
 
 void borrow()
 {
-	int a;
-	int cnt1;
-	char book_borrow[10];
 	system("cls");
 	for(int a=0;a<30;a++)
 	{
 		printf("%c ",b);	
 	}
 	printf("\n");
+	int a;
+	int cnt1;
+	char book_borrow[10];
 	for(a=0;a<N;a++)
 	{
-		printf("%s ",current_listA[a]);
+		printf("%s ",current_list[a]);
 	}
 	printf("\n");
 	printf("enter the book to borrow:");
 	scanf("%s",&book_borrow);
 	for(cnt1=0;cnt1<N+1;cnt1++)
 	{
-		if(strcmp(book_borrow,current_listA[cnt1]) == 0)
+		if(strcmp(book_borrow,current_list[cnt1]) == 0)
 		{
-			current_listA[cnt1][0] = '\0';
+			current_list[cnt1][0] = '\0';
 			break;
 		}
 		else if(cnt1 == N)
@@ -244,7 +187,7 @@ void borrow()
 	}
 	for(a=0;a<N;a++)
 	{
-		printf("%s ",current_listA[a]);
+		printf("%s ",current_list[a]);
 	}
 	printf("\n");
 	printf("Press anything to menu...");
@@ -253,23 +196,23 @@ void borrow()
 
 void book_return()
 {
-	int cnt2;
-	int a;
-	int jump = 0;
-	char b00k_return[10];
 	system("cls");
 	for(int a=0;a<30;a++)
 	{
 		printf("%c ",b);	
 	}
 	printf("\n");
+	int cnt2;
+	int a;
+	int jump = 0;
+	char b00k_return[10];
 	printf("enter the book to return:");
 	scanf("%s",&b00k_return);
 	for(a=0;a<N+1;a++)
 	{
 		if(strcmp(b00k_return,b00k_list[a]) == 0)
 		{
-			strcpy(current_listA[a],b00k_list[a]);
+			strcpy(current_list[a],b00k_list[a]);
 			printf("the book have been returned!");
 		}
 		else if(jump == N)
@@ -327,12 +270,12 @@ void add_book()
 	printf("\n");
 	for(c=0;c<N+1;c++)		
 	{
-		printf("%s ",current_listA[c]);
+		printf("%s ",current_list[c]);
 	}
 	printf("\n");
 	printf("enter the book to add in:");
-	scanf("%s",current_listA[6]);
-	strcpy(b00k_list[6],current_listA[6]);//current_list[6] copy to b00k_list[6]
+	scanf("%s",current_list[6]);
+	strcpy(b00k_list[6],current_list[6]);//current_list[6] copy to b00k_list[6]
 	printf("the book have been added!\n");
 	printf("Press anything to menu...");
 	getch();
@@ -352,9 +295,9 @@ void remove_book()
 	scanf("%s",&book_del);
 	for(cnt2=0;cnt2<N+1;cnt2++)
 	{
-		if(strcmp(book_del,current_listA[cnt2]) == 0)
+		if(strcmp(book_del,current_list[cnt2]) == 0)
 		{
-			current_listA[cnt2][0] = '\0';	
+			current_list[cnt2][0] = '\0';	
 			b00k_list[cnt2][0] = '\0';	
 		}
 		else if(cnt2 == N)
@@ -370,7 +313,7 @@ void _borrow_list()
 	int cnt3,cnt4;
 	for(cnt3=0;cnt3<N+1;cnt3++)
 	{
-		if(strcmp(b00k_list[cnt3],current_listA[cnt3]) != 0)
+		if(strcmp(b00k_list[cnt3],current_list[cnt3]) > 0)
 		{
 			printf("%s ",b00k_list[cnt3]);
 		}
